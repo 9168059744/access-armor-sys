@@ -7,12 +7,14 @@ import { clearMfaVerified } from "@/lib/mfa-session";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
-const NAV = [
+type NavItem = { to: string; label: string; icon: typeof Users; adminOnly?: boolean };
+
+const NAV: NavItem[] = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/profile", label: "Profile", icon: UserCog },
   { to: "/reports", label: "Reports", icon: FileBarChart },
   { to: "/admin", label: "Admin", icon: Users, adminOnly: true },
-] as const;
+];
 
 export function AppShell({
   children,
@@ -53,7 +55,7 @@ export function AppShell({
             {NAV.filter((item) => !item.adminOnly || isAdmin).map((item) => (
               <Link
                 key={item.to}
-                to={item.to}
+                to={item.to as never}
                 className={cn(
                   "flex items-center gap-2 rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground",
                   pathname === item.to && "bg-accent text-foreground",
@@ -77,7 +79,7 @@ export function AppShell({
           {NAV.filter((item) => !item.adminOnly || isAdmin).map((item) => (
             <Link
               key={item.to}
-              to={item.to}
+              to={item.to as never}
               className={cn(
                 "flex shrink-0 items-center gap-2 rounded-md px-3 py-1.5 text-xs text-muted-foreground",
                 pathname === item.to && "bg-accent text-foreground",
