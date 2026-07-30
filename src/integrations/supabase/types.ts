@@ -278,6 +278,42 @@ export type Database = {
         }
         Relationships: []
       }
+      wiz_findings_seen: {
+        Row: {
+          entity_name: string | null
+          finding_id: string
+          first_seen_at: string
+          id: string
+          notified_at: string | null
+          severity: string | null
+          status: string | null
+          title: string | null
+          url: string | null
+        }
+        Insert: {
+          entity_name?: string | null
+          finding_id: string
+          first_seen_at?: string
+          id?: string
+          notified_at?: string | null
+          severity?: string | null
+          status?: string | null
+          title?: string | null
+          url?: string | null
+        }
+        Update: {
+          entity_name?: string | null
+          finding_id?: string
+          first_seen_at?: string
+          id?: string
+          notified_at?: string | null
+          severity?: string | null
+          status?: string | null
+          title?: string | null
+          url?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
