@@ -386,7 +386,7 @@ export const getMyOverview = createServerFn({ method: "GET" })
       supabase.from("mfa_factors").select("*").eq("user_id", userId).order("created_at"),
       supabase.from("backup_codes").select("id, used_at").eq("user_id", userId),
       supabase.from("security_settings").select("*").eq("id", 1).maybeSingle(),
-      supabase.rpc("has_role", { _user_id: userId, _role: "admin" }),
+      supabase.from("user_roles").select("id").eq("user_id", userId).eq("role", "admin").maybeSingle(),
     ]);
 
     return {
@@ -405,10 +405,12 @@ export const getMyOverview = createServerFn({ method: "GET" })
 export const getAdminOverview = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    const { data: isAdmin } = await context.supabase.rpc("has_role", {
-      _user_id: context.userId,
-      _role: "admin",
-    });
+    const { data: isAdmin } = await context.supabase
+      .from("user_roles")
+      .select("id")
+      .eq("user_id", context.userId)
+      .eq("role", "admin")
+      .maybeSingle();
     if (!isAdmin) throw new Error("Forbidden");
 
     const { supabase } = context;
@@ -450,10 +452,12 @@ export const updateSecuritySettings = createServerFn({ method: "POST" })
       .parse(input),
   )
   .handler(async ({ data, context }) => {
-    const { data: isAdmin } = await context.supabase.rpc("has_role", {
-      _user_id: context.userId,
-      _role: "admin",
-    });
+    const { data: isAdmin } = await context.supabase
+      .from("user_roles")
+      .select("id")
+      .eq("user_id", context.userId)
+      .eq("role", "admin")
+      .maybeSingle();
     if (!isAdmin) throw new Error("Forbidden");
 
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -483,10 +487,12 @@ export const adminUserAction = createServerFn({ method: "POST" })
       .parse(input),
   )
   .handler(async ({ data, context }) => {
-    const { data: isAdmin } = await context.supabase.rpc("has_role", {
-      _user_id: context.userId,
-      _role: "admin",
-    });
+    const { data: isAdmin } = await context.supabase
+      .from("user_roles")
+      .select("id")
+      .eq("user_id", context.userId)
+      .eq("role", "admin")
+      .maybeSingle();
     if (!isAdmin) throw new Error("Forbidden");
 
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -541,10 +547,12 @@ export const getReportData = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     const since = new Date(Date.now() - data.days * 86_400_000).toISOString();
-    const { data: isAdmin } = await context.supabase.rpc("has_role", {
-      _user_id: context.userId,
-      _role: "admin",
-    });
+    const { data: isAdmin } = await context.supabase
+      .from("user_roles")
+      .select("id")
+      .eq("user_id", context.userId)
+      .eq("role", "admin")
+      .maybeSingle();
 
     let eventsQuery = context.supabase
       .from("auth_events")
