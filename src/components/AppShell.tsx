@@ -1,7 +1,15 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import type { ReactNode } from "react";
-import { ShieldCheck, LayoutDashboard, Users, FileBarChart, UserCog, LogOut } from "lucide-react";
+import {
+  ShieldCheck,
+  LayoutDashboard,
+  Users,
+  FileBarChart,
+  UserCog,
+  LogOut,
+  ShieldAlert,
+} from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { clearMfaVerified } from "@/lib/mfa-session";
 import { cn } from "@/lib/utils";
@@ -13,6 +21,7 @@ const NAV: NavItem[] = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/profile", label: "Profile", icon: UserCog },
   { to: "/reports", label: "Reports", icon: FileBarChart },
+  { to: "/security", label: "Security", icon: ShieldAlert, adminOnly: true },
   { to: "/admin", label: "Admin", icon: Users, adminOnly: true },
 ];
 
