@@ -14,7 +14,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { AlertTriangle, ExternalLink, Loader2, RefreshCw, ShieldCheck } from "lucide-react";
+import { AlertTriangle, Download, ExternalLink, Loader2, RefreshCw, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
@@ -117,6 +117,32 @@ function SecurityOverviewPage() {
     [findings, severityFilter],
   );
 
+  function exportCsv() {
+    const rows: (string | number)[][] = [
+      ["Severity", "Finding", "Resource", "Status", "First seen", "Wiz URL"],
+      ...visible.map((f) => [
+        (f.severity ?? "UNKNOWN").toUpperCase(),
+        f.title ?? "Wiz issue",
+        f.entity_name ?? "",
+        f.status ?? "",
+        f.first_seen_at ? new Date(f.first_seen_at).toISOString() : "",
+        f.url ?? "",
+      ]),
+    ];
+    const csv = rows
+      .map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(","))
+      .join("\n");
+    const url = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `secureauth-wiz-findings-${severityFilter.toLowerCase()}-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    toast.success(`Exported ${visible.length} finding${visible.length === 1 ? "" : "s"} to CSV`);
+  }
+
+
+
   if (isLoading) {
     return (
       <AppShell title="Security overview" isAdmin>
@@ -160,10 +186,15 @@ function SecurityOverviewPage() {
           )}
           Sync from Wiz
         </Button>
+        <Button size="sm" variant="outline" onClick={exportCsv} disabled={visible.length === 0}>
+          <Download className="size-4" />
+          Export CSV
+        </Button>
         <span className="text-xs text-muted-foreground">
           Findings sync automatically every 15 minutes and alert to Slack.
         </span>
       </div>
+
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Kpi label="Risk level" value={riskLabel} hint={`Weighted score ${stats.riskScore}/100`} />
