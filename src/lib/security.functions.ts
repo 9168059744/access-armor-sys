@@ -64,7 +64,7 @@ export const startEnrollment = createServerFn({ method: "POST" })
     const totp = await import("./totp.server");
     const secret = totp.generateSecret();
     const email = (context.claims.email as string) ?? "user";
-    return { secret, uri: totp.otpauthUri({ secret, account: email, issuer: "SecureAuth" }) };
+    return { secret, uri: totp.otpauthUri({ secret, account: email, issuer: "CyberShield" }) };
   });
 
 export const confirmEnrollment = createServerFn({ method: "POST" })

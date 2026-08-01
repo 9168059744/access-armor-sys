@@ -31,13 +31,13 @@ import {
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Sign in — SecureAuth MFA Console" },
+      { title: "Sign in — CyberShield MFA Console" },
       {
         name: "description",
         content:
-          "Register or sign in to SecureAuth. Every account completes authenticator enrollment and a one-time-password challenge.",
+          "Register or sign in to CyberShield. Every account completes authenticator enrollment and a one-time-password challenge.",
       },
-      { property: "og:title", content: "Sign in — SecureAuth MFA Console" },
+      { property: "og:title", content: "Sign in — CyberShield MFA Console" },
       {
         property: "og:description",
         content: "Multi-step registration with mandatory TOTP enrollment and recovery codes.",
@@ -256,7 +256,7 @@ function AuthPage() {
           <span className="flex size-9 items-center justify-center rounded-xl bg-primary/15 text-primary">
             <ShieldCheck className="size-5" />
           </span>
-          <span className="font-semibold tracking-tight">SecureAuth</span>
+          <span className="font-semibold tracking-tight">CyberShield</span>
         </div>
 
         <div className="glass rounded-2xl p-6 shadow-panel sm:p-8">
