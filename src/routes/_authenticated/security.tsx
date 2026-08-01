@@ -117,6 +117,32 @@ function SecurityOverviewPage() {
     [findings, severityFilter],
   );
 
+  function exportCsv() {
+    const rows: (string | number)[][] = [
+      ["Severity", "Finding", "Resource", "Status", "First seen", "Wiz URL"],
+      ...visible.map((f) => [
+        (f.severity ?? "UNKNOWN").toUpperCase(),
+        f.title ?? "Wiz issue",
+        f.entity_name ?? "",
+        f.status ?? "",
+        f.first_seen_at ? new Date(f.first_seen_at).toISOString() : "",
+        f.url ?? "",
+      ]),
+    ];
+    const csv = rows
+      .map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(","))
+      .join("\n");
+    const url = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `secureauth-wiz-findings-${severityFilter.toLowerCase()}-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    toast.success(`Exported ${visible.length} finding${visible.length === 1 ? "" : "s"} to CSV`);
+  }
+
+
+
   if (isLoading) {
     return (
       <AppShell title="Security overview" isAdmin>
