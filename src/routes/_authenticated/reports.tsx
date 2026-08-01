@@ -48,7 +48,7 @@ function ReportsPage() {
     const url = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
     const a = document.createElement("a");
     a.href = url;
-    a.download = "secureauth-authentication-report.csv";
+    a.download = "cybershield-authentication-report.csv";
     a.click();
     URL.revokeObjectURL(url);
   }

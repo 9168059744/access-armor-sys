@@ -13,13 +13,13 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "SecureAuth — MFA Rollout Plan for Enterprise Identity" },
+      { title: "CyberShield — MFA Rollout Plan for Enterprise Identity" },
       {
         name: "description",
         content:
-          "SecureAuth is a phased multi-factor authentication rollout platform: TOTP enrollment, backup codes, lockout policy, audit logging and admin oversight.",
+          "CyberShield is a phased multi-factor authentication rollout platform: TOTP enrollment, backup codes, lockout policy, audit logging and admin oversight.",
       },
-      { property: "og:title", content: "SecureAuth — MFA Rollout Plan" },
+      { property: "og:title", content: "CyberShield — MFA Rollout Plan" },
       {
         property: "og:description",
         content:
@@ -93,7 +93,7 @@ function Landing() {
           <span className="flex size-9 items-center justify-center rounded-xl bg-primary/15 text-primary">
             <ShieldCheck className="size-5" />
           </span>
-          <span className="font-semibold tracking-tight">SecureAuth</span>
+          <span className="font-semibold tracking-tight">CyberShield</span>
           <span className="ml-2 hidden rounded-full border border-border px-2 py-0.5 text-[11px] text-muted-foreground sm:inline">
             MFA Rollout Plan
           </span>
@@ -227,7 +227,7 @@ function Landing() {
 
       <footer className="relative border-t border-border/60">
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-8 text-xs text-muted-foreground sm:flex-row sm:items-center sm:px-6">
-          <span>SecureAuth · MFA Rollout Plan · cybersecurity capstone</span>
+          <span>CyberShield · MFA Rollout Plan · cybersecurity capstone</span>
           <span className="sm:ml-auto">Authentication events retained for 90 days</span>
         </div>
       </footer>

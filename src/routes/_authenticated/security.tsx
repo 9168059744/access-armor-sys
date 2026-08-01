@@ -135,7 +135,7 @@ function SecurityOverviewPage() {
     const url = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
     const a = document.createElement("a");
     a.href = url;
-    a.download = `secureauth-wiz-findings-${severityFilter.toLowerCase()}-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.download = `cybershield-wiz-findings-${severityFilter.toLowerCase()}-${new Date().toISOString().slice(0, 10)}.csv`;
     a.click();
     URL.revokeObjectURL(url);
     toast.success(`Exported ${visible.length} finding${visible.length === 1 ? "" : "s"} to CSV`);

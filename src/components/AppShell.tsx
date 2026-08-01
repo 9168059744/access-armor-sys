@@ -57,7 +57,7 @@ export function AppShell({
             <span className="flex size-8 items-center justify-center rounded-lg bg-primary/15 text-primary">
               <ShieldCheck className="size-4" />
             </span>
-            <span className="text-sm font-semibold tracking-tight">SecureAuth</span>
+            <span className="text-sm font-semibold tracking-tight">CyberShield</span>
           </Link>
 
           <nav className="hidden items-center gap-1 md:flex">
