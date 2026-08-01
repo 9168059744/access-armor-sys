@@ -160,10 +160,15 @@ function SecurityOverviewPage() {
           )}
           Sync from Wiz
         </Button>
+        <Button size="sm" variant="outline" onClick={exportCsv} disabled={visible.length === 0}>
+          <Download className="size-4" />
+          Export CSV
+        </Button>
         <span className="text-xs text-muted-foreground">
           Findings sync automatically every 15 minutes and alert to Slack.
         </span>
       </div>
+
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Kpi label="Risk level" value={riskLabel} hint={`Weighted score ${stats.riskScore}/100`} />
